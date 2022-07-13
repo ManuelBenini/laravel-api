@@ -1908,7 +1908,27 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'App',
+  data: function data() {
+    return {
+      apiUrl: 'http://127.0.0.1:8000/api/posts',
+      posts: null
+    };
+  },
+  methods: {
+    getApi: function getApi() {
+      var _this = this;
+
+      axios.get(this.apiUrl).then(function (res) {
+        _this.posts = res.data.posts;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getApi();
+  }
+});
 
 /***/ }),
 
@@ -1929,7 +1949,11 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_vm._v("\n        HOME VUE\n    ")]);
+  }, [_c("h1", [_vm._v("Lista post")]), _vm._v(" "), _c("ul", _vm._l(_vm.posts, function (post) {
+    return _c("li", {
+      key: post.id
+    }, [_c("h3", [_vm._v(_vm._s(post.title))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(post.content))])]);
+  }), 0)]);
 };
 
 var staticRenderFns = [];
